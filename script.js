@@ -8,20 +8,16 @@ $(function() {
 function watchForm() {
     $('#dog-breed').submit(event => {
         event.preventDefault();
-        getDogImage();
+        let userBreed = $('#dogBreed').val();
+        getDogImage(userBreed);
     });
 }
 
-function getDogImage() {
-    fetch("https://dog.ceo/api/breed/" + getUserInput() +"/images/random")
+function getDogImage(breed) {
+    fetch(`https://dog.ceo/api/breed/${breed}/images/random`)
     .then(response => response.json())
     .then(responseJson => displayResults(responseJson))
     .catch(error => alert("Either we don't have that breed in our database or you made that one up. Please try again.")); 
-}
-
-function getUserInput() {
-    let userBreed = $('#dogBreed').val();
-    return userBreed;
 }
 
 function displayResults(responseJson) {
